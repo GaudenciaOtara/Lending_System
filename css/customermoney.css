@@ -1,0 +1,37 @@
+input{
+    width: 15vw;
+    height: 7vh;
+    border: 1px solid #20639B;
+    border-radius: 20px;
+    margin-left: 2%;
+}
+input:focus{
+    border: 1px solid #20639B;
+    border-radius: 20px;
+    outline: 0;
+}
+::placeholder{
+    color: #20639B;
+    padding: 3%;
+}
+button{
+    background-color: #20639B;
+    color: white;
+    font-weight: bold;
+    height: 5vh;
+    width: 10vw;
+    border: 1px solid #20639B;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-left: 1%;
+}
+.table h2{
+    text-align: center;
+    color: #20639B;
+    margin-bottom: 0;
+} 
+hr{
+    margin-bottom: 3%;
+    background-color: #20639B;
+    height: 0.2vh;
+}

@@ -1,0 +1,29 @@
+.profile input{
+    height: 6vh;
+    width: 20vw;
+    margin-top: 1%;
+    background-color: #20639B;
+    border: 1px solid #20639B;
+    border-radius: 20px;
+}
+::placeholder{
+    color: white;
+    padding-left: 4%;
+}
+input:focus{
+    background-color: #20639B;
+    border: 1px solid #20639B;
+    border-radius: 3%;
+    outline: 0;
+}
+.profile{
+    margin-left: 2%;
+}
+.profile p{
+    color: #20639B;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+.profile hr{
+    background-color: #20639B;
+}

@@ -1,0 +1,81 @@
+body, html{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.form{
+    margin-top: 3%;
+    border: 1px solid whitesmoke;
+    margin-left: 30%;
+    border: 1px solid grey;
+    width: 20vw;
+    padding: 5%;
+}
+.form input{
+    width: 20vw;
+    height: 6vh;
+    margin-top: 3.5%;
+    border: 1px solid rgb(218, 218, 218);
+    text-align: center;
+     /* border-radius: 5%; */
+}
+input:focus{
+    border: 1px solid rgb(218, 218, 218);
+    padding: 1px;
+    outline: none;
+}
+select:focus{
+    border: 1px solid rgb(218, 218, 218);
+    padding: 1px;
+    outline: none;
+}
+option{
+    background-color: white;
+    color: #20639B;
+    width: 15vw;
+    border-radius: 20px;
+
+}
+::placeholder{
+    color: #20639B;
+}
+.form select{
+    width: 15vw;
+    height: 6vh;
+    margin-top: 10%;
+    margin-left: 10%;
+    background-color: #20639B;
+    text-align: center;
+    color: white;
+    border: 1px solid #20639B;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.form p{
+    font-size: 1.8rem;
+    font-weight: 100;
+    color: #20639B;
+    margin-left: 2%;
+    margin-bottom: 4%;
+}
+.form button{
+    color: white;
+    background-color: #20639B;
+    width: 11vw;
+    height: 6vh;
+    margin-top: 8%;
+    margin-left: 20%;
+    border: 1px solid #20639B;
+    border-radius: 20px;
+    cursor: pointer;
+ }
+.forgotpassword{
+    font-size: 1rem;
+}
+.form a{
+    text-decoration: none;
+    color: #20639B;
+}
+.login{
+    margin-left: 8%;
+}
+ 

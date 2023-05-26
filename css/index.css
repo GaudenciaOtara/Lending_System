@@ -1,0 +1,65 @@
+body, html{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+} 
+ nav{
+    background-color: #20639B;
+    color: white;
+    height: 23vh;
+ }
+ .buttons button{
+    background-color: white;
+    height: 8vh;
+    width: 10vw;
+    color: #20639B;
+    border-radius: 10px;
+    border: 1px solid white;
+    box-shadow: 1px 1px 2px 1px rgba(145, 145, 145, 0.747);
+    font-size: 11px;
+    font-weight: bolder;
+    cursor: pointer;
+ }
+ .button2{
+    margin-left: 1%;
+ }
+ .back{
+    margin-left: 1.5%;
+ }
+ .back img{
+   margin-top: 0.7%;
+ }
+ .back a{
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+ }
+ .details h3{
+    margin-left: 1.5%;
+
+ }
+ .details p{
+    margin-left: 1.5%;
+ }
+
+ .settings{
+    position: absolute;
+    right: 2%;
+    top: 1%;
+ }
+ .settings a{
+    color: white;
+    text-decoration: none;
+ }
+ .buttons{
+    margin-left: 3%;
+    margin-top: 1%;
+ }
+ h4{
+   color: #20639B;
+   margin-left: 3%;
+   margin-top: 0;
+ }
+ 
+.settings img{
+   border-radius: 50%;
+}

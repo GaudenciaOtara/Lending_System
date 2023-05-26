@@ -1,0 +1,29 @@
+.table{
+    margin-left: 3%;
+}
+table{
+    border-collapse: collapse;
+}
+table, th, td{
+    width: 33vw;
+    border: 1px solid #20639B;
+    text-align: center;
+    height: 8vh;
+    color: #20639B;
+ }
+table, th{
+    width: 90vw;
+}
+.head{
+    font-weight: bold;
+    color: #20639B;
+}
+.table button{
+    height: 5vh;
+    width: 8vw;
+    background-color: #20639B;
+    color: white;
+    border-radius: 20px;
+    border: 1px solid #20639B;
+    cursor: pointer;
+}

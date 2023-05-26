@@ -1,0 +1,42 @@
+button{
+    background-color: #20639B;
+    border: 1px solid #20639B;
+    height: 7vh;
+    width: 15vw;
+    color: white;
+    border-radius: 20px;
+    margin-top: 2%;
+    margin-left: 10%;
+    margin-bottom: 5%;
+    cursor: pointer;
+}
+button:focus{
+    border: 1px solid #20639B;
+    outline: 0;
+}
+.modal-content {
+    background-color: #20639B;
+    color: white;
+  }
+
+  .modal-header {
+    border-bottom: none;
+  }
+
+  .modal-title {
+    color: white;
+  }
+
+  .modal-body input {
+    background-color: white;
+    color: #20639B;
+  }
+
+  .modal-footer {
+    border-top: none;
+  }
+
+  .modal-footer button {
+    background-color: #20639B;
+    color: white;
+  }

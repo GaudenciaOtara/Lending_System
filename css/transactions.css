@@ -1,0 +1,104 @@
+.form input{
+    width: 12vw;
+    background-color: white;
+    margin-top: 6%;
+    border-radius: 20px;
+    border: 1px solid whitesmoke;
+    box-shadow: 1px 1px 2px 2px rgb(158, 158, 158);
+}
+.form{
+    display: flex;
+}
+.form button{
+    background-color: #20639B;
+    color: white;
+    height: 6vh;
+    width: 10vw;
+    margin-top: 2%;
+    border: 1px solid #20639B;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+label{
+    position: absolute;
+    top: 43%;
+}
+.bottom{
+    margin-top: 8%;
+}
+::placeholder{
+    color: #20639B;
+}
+input:focus{
+    color: #20639B;
+    border-radius: 20px;
+}
+.form2 p{
+    color: #20639B;
+    font-weight: bold;
+    margin-bottom: 0px;
+    margin-left: 2%;
+    margin-top: 4%;
+}
+.form2 hr{
+    background-color: #20639B;
+    margin-left: 2%;
+}
+select{
+    height: 6vh;
+    width: 15vw;
+    margin-left: 3%;
+    border-radius: 20px;
+    border: 1px solid whitesmoke;
+    box-shadow: 1px 1px 2px 2px rgb(158, 158, 158);
+    
+}
+select:focus{
+    border-radius: 20px;
+    border: 1px solid whitesmoke;
+    box-shadow: 1px 1px 2px 2px rgb(158, 158, 158);
+}
+.agentdetails{
+    height: 6vh;
+    width: 10vw;
+    margin-left: 25%;
+    border-radius: 20px;
+    background-color: #20639B;
+    border: 1px solid #20639B;
+    color: white;
+    font-weight: bold;
+    margin-top: 3%;
+    margin-bottom: 4%;
+    cursor: pointer;
+}
+input{
+    color: #20639B;
+}
+.form2 button{
+    background-color: #20639B;
+    color: white;
+    height: 6vh;
+    width: 10vw;
+    margin-top: 0.7%;
+    border: 1px solid #20639B;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 5%;
+}
+.form2 input{
+    width: 12vw;
+    height: 6vh;
+    background-color: white;
+    margin-top: 0.7%;
+    margin-left: 2%;
+    border-radius: 20px;
+    border: 1px solid whitesmoke;
+    /* margin-bottom: 1%; */
+    box-shadow: 1px 1px 2px 2px rgb(158, 158, 158);
+}
+/* .form2 select{
+    margin-top: 2%;
+    margin-left: 6%;
+} */

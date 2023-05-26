@@ -1,0 +1,25 @@
+body,html{
+    background-color: #20639B;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+p{
+    color: white;
+    margin-top: 13%;
+    margin-left: 39%;
+    font-size: 2rem;
+}
+.explore{
+    background-color: white;
+    width: 10vw;
+    height: 7vh;
+    border: 1px solid white;
+    margin-left: 43%;
+    color: #4682B4;
+    font-size: 1rem;
+    margin-top: 10%;
+    border-radius: 5%;
+    cursor: pointer;
+}
+a{
+    text-decoration: none;
+}
