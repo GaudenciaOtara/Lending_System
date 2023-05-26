@@ -10,6 +10,8 @@ $var_session=$_SESSION["user"];
 $user_query = mysqli_query($conn,"select * from customer_reg where email='$var_session'");
 $user_data = mysqli_fetch_assoc($user_query);
 $phoneNumber=$user_data['phonenumber'];
+$cus_ID=$user_data['id'];
+
 
 $agent_transactions = mysqli_query($conn,"select * from customer_money where customer_number='$phoneNumber'");
 $agent_trans = mysqli_fetch_assoc($agent_transactions);
@@ -22,8 +24,38 @@ $totalamount=0;
 while ($row = mysqli_fetch_assoc($agent_transactions)) {
     $sumLentAmount += $row['amount_lent'];
     $expectedInterest+=$row['expected_interest'];
-    $totalamount+=$row['total_amount'];
+    $totalamount+=$row['total_amount'] ;
 
+}
+$customer_transactions = mysqli_query($conn,"select * from customer_returns where customer_id='$cus_ID'");
+$customer_trans = mysqli_fetch_assoc($customer_transactions);
+$remInterest=0;
+$remamount=0;
+
+
+// / Iterate over the fetched rows and sum the lent_amount
+while ($rows = mysqli_fetch_assoc($customer_transactions)) {
+    $remInterest+=$rows['expected_interest'];
+    $remainingInterest=$expectedInterest-$remInterest;
+    $remamount+=$rows['amount_sent'] ;
+    $remainingTotal=$totalamount-$remamount;
+
+}
+
+
+if (isset($_POST['send'])){
+    $agent_id=$_POST['agent_id'];
+    $amount_sent = $_POST['amount_sent'];
+    $unique_code = $_POST['unique_code'];
+    $interest = $_POST['expected_interest'];
+    $ID = $_POST['customer_id'];
+
+    $statement= $conn->prepare("INSERT into customer_returns (agent_id,amount_sent,unique_code,expected_interest,customer_id) VALUES (?,?,?,?,?)");
+    $statement->bind_param("idsdi",$agent_id,$amount_sent,$unique_code,$interest,$ID);
+    $statement->execute();
+    $statement->close();
+    header("Location: ./transactions.php");
+    exit();
 }
 ?>
 
@@ -82,6 +114,14 @@ while ($row = mysqli_fetch_assoc($agent_transactions)) {
 <p>Amount(Interest+Principal)</p>
 <hr>
 <input type="number"  value="<?php echo $totalamount; ?>" class="bottom" name="lender_id">  
+
+</div>
+<div class="form2">
+<p>Remaining Balance</p>
+<hr>
+<input type="number"  value="<?php echo $remainingTotal; ?>" class="bottom" name="">  
+<input type="number"  value="<?php echo $remainingInterest; ?>" class="bottom" name="">  
+
 </div>
 <div class="form2">
 <p>Topup</p>
@@ -91,9 +131,17 @@ while ($row = mysqli_fetch_assoc($agent_transactions)) {
 <div class="form2">
 <p>Loan Payment</p>
 <hr>
-<input type="number" placeholder="Agent's Account Number" value="" class="bottom" name="account_number">  
-<input type="number" placeholder="Amount to send to Agent" value="" class="bottom" name="total_amount"> 
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
 
+<input type="number" placeholder="Agent's ID" value="" class="bottom" name="agent_id">  
+<input type="text" placeholder="Amount to send to Agent" value="" class="bottom" name="amount_sent"> 
+<input type="text" placeholder="Unique Code" value="" class="bottom" name="unique_code"> 
+<input type="text" placeholder="Expected Interest" value="" class="bottom" name="expected_interest"> 
+<input type="hidden" placeholder="Customer ID" value="<?php echo $user_data['id']; ?>" class="bottom" name="customer_id"> 
+
+
+
+<br>
       
 <?php
 $stmt = $conn->prepare("SELECT * from customer_money WHERE customer_number='$phoneNumber'");
@@ -109,6 +157,8 @@ $result = $stmt->get_result();
         }
         ?>
     </select>
+<button style="margin-left:3%; margin-bottom:5%;"; name="send">SEND</button>
+</form>
 </div>
 
 <div id="customerDetails"></div>
@@ -121,7 +171,17 @@ $result = $stmt->get_result();
         xhr.open("GET", "fetch_customer_details.php?id=" + selectedCustomerId, true);
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                document.getElementById("customerDetails").innerHTML = xhr.responseText;
+                // Parse the JSON response
+                var response = JSON.parse(xhr.responseText);
+
+                // Update the input fields with the customer details
+                document.getElementsByName("agent_id")[0].value = response.customerName;
+                document.getElementsByName("amount_sent")[0].value = response.customerEmail;
+                document.getElementsByName("unique_code")[0].value = response.transactionCode;
+                document.getElementsByName("expected_interest")[0].value = response.expectedInterest;
+
+                // document.getElementByName("unique_code")[0].value=response.transactionCode;
+
             }
         };
         xhr.send();
@@ -129,10 +189,10 @@ $result = $stmt->get_result();
 
     document.getElementById("customer").addEventListener("change", getCustomerDetails);
 </script>
+
  <br> <br>
 
 
-<button style="margin-left:18%; margin-bottom:5%;";>SEND</button>
 </div>
  <br>
 </body>
@@ -147,3 +207,4 @@ $result = $stmt->get_result();
     }
  
  ?>
+  

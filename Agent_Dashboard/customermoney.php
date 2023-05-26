@@ -87,16 +87,7 @@ if (isset($_POST['send'])){
 <br>
 <h4>Your Account Balance is <?php echo "Ksh". $accumulatedTotal; ?></h4>
  <div class="assign-money">
- <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
-    <input type="number" placeholder="Customer Number" name="customer_number">
-    <input type="number" placeholder="Amount" name="amount_lent" oninput="calculateExpectedInterest(this.value)">
-    <input type="number" placeholder="Expected Interest" name="expected_interest" id="expected_interest" readonly>
-    <input type="number" placeholder="Total Amount" name="total_amount" id="total_amount" readonly>
-    <input type="hidden" value="<?php echo $user_data['id'];?>" name="agent_id">
-    <input type="hidden" value="<?php echo $accumulatedTotal;?>" name="account_balance">
 
-    <button name="send">SEND</button>
-</form>
 
  
 

@@ -17,6 +17,7 @@ $statement = $conn->prepare($query);
 $statement->bind_param("s", $user_data["account_number"]);
 $statement->execute();
 $result = $statement->get_result();
+$acc_no=$user_data['account_number'];
 $numbers = [];
 while ($row = $result->fetch_assoc()) {
     $numbers[] = $row['lent_amount'];
@@ -61,10 +62,25 @@ else{
     $conn->close();
     header("Location: ./lendermoney.php");
     exit();
-         
     
     }
   }
+
+  if (isset($_POST['return'])){
+    $unique_code=$_POST['unique_code'];
+    $lender_id=$_POST['lender_id'];
+    $agent_acc_no=$_POST['agent_account_number'];
+    $amount_sent = $_POST['total_amount'];
+    $commision = $_POST['expected_commision'];
+    // $ID = $_POST['customer_id'];
+
+    $statement= $conn->prepare("INSERT into agent_returns (unique_code,lender_id,agent_account_number,total_amount,expected_commision) VALUES (?,?,?,?,?)");
+    $statement->bind_param("siidd",$unique_code,$lender_id,$agent_acc_no,$amount_sent,$commision);
+    $statement->execute();
+    $statement->close();
+    header("Location: ./lendermoney.php");
+    exit();
+}
 ?>
 
 
@@ -96,7 +112,10 @@ else{
 </div>
 </nav>
 <br>
+<div class="sendtolender">
+<button class="allocate-btn" data-toggle="modal" data-target="#sendModal">SEND</button>
 
+</div>
  <div class="table">
 
  <table>
@@ -108,7 +127,7 @@ else{
       <td>Unique Code</td>
       <!-- <td>Profit Generated</td> -->
       <td>Allocate</td>
-      <td>Send to Lender</td>
+      <!-- <td>Send to Lender</td> -->
     </tr>
   </thead>
   <tbody>
@@ -130,8 +149,93 @@ else{
         <td>
           <button class="allocate-btn" data-toggle="modal" data-target="#allocationModal-<?php echo $row['unique_code']; ?>" data-row-id="<?php echo $id_count; ?>">ALLOCATE</button>
         </td>
-        <td><button>SEND</button></td>
+    
       </tr>
+
+      <!-- Send Bootstrap Modal -->
+      <div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="sendModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sendModalLabel">Send to Lender</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
+          <div class="form-group">
+            <label for="input1">Unique Code</label>
+            <input type="text" class="form-control" id="input1" placeholder="Enter value" name="unique_code">
+          </div>
+          <div class="form-group">
+            <label for="input2">Lender ID</label>
+            <input type="text" class="form-control" id="input2" placeholder="Enter value" name="lender_id">
+          </div>
+          <div class="form-group">
+            <label for="input3">Agent Account Number</label>
+            <input type="text" class="form-control" id="input3" placeholder="Enter value" name="agent_account_number">
+          </div>
+          <div class="form-group">
+            <label for="input4">Total Amount Sent</label>
+            <input type="text" class="form-control" id="input4" placeholder="Enter value" name="total_amount">
+          </div>
+          <div class="form-group">
+            <label for="input5">Expected Commission</label>
+            <input type="text" class="form-control" id="input5" placeholder="Enter value" name="expected_commision">
+          </div>
+          <div class="form-group">
+            <label for="select">Dropdown Select</label>
+            <select class="form-control" id="select" onchange="fetchData(this.value)">
+        <?php
+        $state = $conn->prepare("SELECT * FROM lender_transactions where agent_account_number='$acc_no' ");
+        $state->execute();
+        $res = $state->get_result();
+        while ($rows = $res->fetch_assoc()) {
+          echo '<option value="' . $rows['unique_code'] . '">' . $rows['unique_code'] . '</option>';
+        }
+        ?>
+      </select>            
+          </div>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" name="return">Send</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Updating Javascript -->
+<script>
+  function fetchData(selectedValue) {
+    $.ajax({
+      url: 'fetch_data.php',
+      method: 'POST',
+      data: { selectedValue: selectedValue },
+      success: function(response) {
+        document.getElementById('input1').value = response.uniqueCode;
+        document.getElementById('input2').value = response.lenderID;
+        document.getElementById('input3').value = response.agentAccountNumber;
+        document.getElementById('input4').value = response.totalAmountSent;
+        document.getElementById('input5').value = calculateExpectedCommission(response.totalAmountSent);
+      },
+      error: function() {
+        // Handle errors if any
+      }
+    });
+  }
+
+  function calculateExpectedCommission(totalAmount) {
+    // Calculate 3% of the total amount
+    var commission = totalAmount * 0.03;
+    return commission.toFixed(2); // Round to 2 decimal places if needed
+  }
+</script>
+<!-- End of Modal Updating Javascript -->
+
+      <!-- End of Send Modal -->
 
       <!-- Bootstrap Modal -->
       <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" id="allocationForm">
@@ -168,6 +272,7 @@ else{
                 </div>
                 <input type="hidden" class="form-control" value="<?php echo $user_data['id']; ?>" name="agent_id" readonly>
                 <input type="hidden" class="form-control" value="<?php echo $row['lent_amount']; ?>" name="amount" readonly>
+                
               </div>
               <div class="modal-footer">
                 <button type="submit" name="send">Allocate</button>

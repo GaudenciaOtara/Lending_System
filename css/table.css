@@ -27,3 +27,14 @@ table, th{
     border: 1px solid #20639B;
     cursor: pointer;
 }
+.sendtolender button{
+    height: 7vh;
+    width: 8vw;
+    background-color: #20639B;
+    color: white;
+    /* border-radius: 20px; */
+    border: 1px solid #20639B;
+    cursor: pointer;
+    margin-bottom: 2%;
+    margin-left: 3%;
+}

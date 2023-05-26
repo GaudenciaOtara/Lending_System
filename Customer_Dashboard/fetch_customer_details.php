@@ -8,8 +8,17 @@ $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
-echo "Customer Name: " . $row['customer_name'] . "<br>";
-echo "Customer Email: " . $row['customer_email'] . "<br>";
+$customerData = array(
+    'customerName' => $row['agent_id'],
+    'customerEmail' => $row['total_amount'],
+    'transactionCode'=>$row['unique_code'],
+    'expectedInterest'=>$row['expected_interest']
+
+);
 
 $stmt->close();
+
+// Return the customer details as JSON response
+header('Content-Type: application/json');
+echo json_encode($customerData);
 ?>
