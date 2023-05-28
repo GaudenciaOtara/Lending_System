@@ -11,14 +11,20 @@ $user_query = mysqli_query($conn,"select * from agent_reg where email='$var_sess
 $user_data = mysqli_fetch_assoc($user_query);
 $query = "SELECT lent_amount FROM lender_transactions WHERE agent_account_number=?";
 $statement = $conn->prepare($query);
+$acc_no=$user_data['account_number'];
 $statement->bind_param("s", $user_data["account_number"]);
 $statement->execute();
 $result = $statement->get_result();
-$numbers = [];
-while ($row = $result->fetch_assoc()) {
-    $numbers[] = $row['lent_amount'];
+// $numbers = [];
+// while ($row = $result->fetch_assoc()) {
+//     $numbers[] = $row['lent_amount'];
+// }
+// $accumulatedTotal = array_sum($numbers);
+$updated_commision_balance = mysqli_query($conn, "SELECT * FROM agent_commision WHERE agent_account_number='$acc_no'");
+$total_commision = 0;
+while ($row = mysqli_fetch_assoc($updated_commision_balance)) {
+    $total_commision += $row['commision'];
 }
-$accumulatedTotal = array_sum($numbers);
 
 ?>
 
@@ -47,7 +53,7 @@ $accumulatedTotal = array_sum($numbers);
 </div>
 </nav>
 <br>
-<h4>Your Account Balance is <?php echo "Ksh". $accumulatedTotal; ?></h4>
+<h4>Your total commision is <?php echo "Ksh". $total_commision; ?></h4>
 
 <div class="buttons">
    <a href="reports.php"> <button>Reports</button></a>
@@ -56,6 +62,9 @@ $accumulatedTotal = array_sum($numbers);
 <div class="buttons">
    <a href="profile.php"> <button>Profile Details</button></a>
    <a href="customermoney.php"> <button class="button2">Money Assigned  </button></a>
+</div>
+<div class="buttons">
+    <button style="margin-left:3%; width:15vw;";>Withdraw Commision</button>
 </div>
 </body>
 </html>

@@ -14,7 +14,6 @@ $result = mysqli_query($conn, $query);
 $lender_details = mysqli_query($conn,"select * from lender_transactions where lender_id={$user_data['id']}");
 $lender = mysqli_fetch_assoc($lender_details);
 
-
 function generateUniqueCode($length = 8) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $code = '';
@@ -74,6 +73,8 @@ exit();
      
 }
 }
+ 
+
 ?>
 
 
@@ -87,6 +88,8 @@ exit();
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/profile.css">
     <link rel="stylesheet" href="../css/transactions.css">
+   
+
 
 </head>
 <body>
@@ -110,7 +113,7 @@ exit();
 <div class="form">
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
        
-    <input type="text" value="<?php echo  $user_data['account_balance']?>" name="account_balance" readonly>
+    <input type="text" value="<?php echo  $user_data['updated_balance'];?>" name="account_balance" readonly>
 
     <input type="number" placeholder="Amount to lend" name="lent_amount" >
     <br>
@@ -122,7 +125,7 @@ exit();
 </form>
 </div>
 </div>
-
+ 
 <div class="form2">
 <p>Money Returned</p>
 <hr>

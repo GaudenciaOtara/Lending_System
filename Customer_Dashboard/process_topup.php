@@ -5,7 +5,7 @@ session_start();
 
 $phone_number = htmlspecialchars($_POST["phoneNumber"]);
 $amount = htmlspecialchars($_POST["amount"]);
-$lender_id = htmlspecialchars($_POST["lender_id"]);
+$customer_id = htmlspecialchars($_POST["customer_id"]);
 
 
 $consumer_key = 'xnyvQOOf8je1X4PtHKQmPGQj3d9ATYRQ';
@@ -75,13 +75,13 @@ if ($curl_Tranfer2_response->ResponseCode === "0") {
     $phoneNumber = $curl_Tranfer2_post_data['PhoneNumber'];
 
     // Prepare and execute the SQL query to insert the transaction details
-    $sql = "INSERT INTO top_up (transaction_id, amount, phone_number,lender_id) VALUES ('$transactionID', '$transactionAmount', '$phoneNumber','$lender_id')";
+    $sql = "INSERT INTO customer_top_up (transaction_id, amount, phonenumber,customer_id) VALUES ('$transactionID', '$transactionAmount', '$phoneNumber','$customer_id')";
     // echo $phoneNumber;
 
     if ($conn->query($sql) === TRUE) {
         echo "Transaction recorded successfully.";
         echo "<script>alert('Transaction Successful');</script>";
-        echo "<script>window.location.href = '../Lender_Dashboard/index.php';</script>";
+        echo "<script>window.location.href = './index.php';</script>";
     } else {
         echo "Error recording transaction: " . $conn->error;
     }
