@@ -129,18 +129,49 @@ exit();
 <div class="form2">
 <p>Money Returned</p>
 <hr>
-<select name="" id="">
-    <option value="">Customer1</option>
+<select class="form-control" id="selectOption" onchange="displayDetails()">
+  <?php
+    $lender_id = $user_data['id'];
+    $state = $conn->prepare("SELECT * FROM agent_returns where lender_id='$lender_id'");
+    $state->execute();
+    $res = $state->get_result();
+    while ($rows = $res->fetch_assoc()) {
+      echo '<option value="' . $rows['unique_code'] . '">' . $rows['unique_code'] . '</option>';
+    }
+  ?>
 </select>
+
+<div id="detailsContainer"></div>
+
+<script>
+  function displayDetails() {
+    var select = document.getElementById("selectOption");
+    var selectedValue = select.value;
+    var url = "retrieve_details.php?selectedValue=" + encodeURIComponent(selectedValue);
+    $.ajax({
+      url: url,
+      success: function(response) {
+         document.getElementById("detailsContainer").innerHTML = response;
+      },
+      error: function() {
+        console.error("Error retrieving details");
+      }
+    });
+  }
+</script>
+
 </div>
 <div class="form2">
 <p>Profit</p>
 <hr>
-<select name="" id="">  
+<select name="" id="">
     <option value="">Customer1</option>
 </select>
 </div>
 <a href="details.php"><button class="agentdetails">AGENTS DETAILS</button></a>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </body>
 </html>
 <?php

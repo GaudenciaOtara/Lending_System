@@ -34,7 +34,7 @@ $remamount=0;
 
 $updated_topup_balance = mysqli_query($conn, "SELECT * FROM customer_top_up WHERE customer_id='$cus_ID'");
 $total_top_up = 0;
-// / Iterate over the fetched rows and sum the lent_amount
+ 
 while ($rows = mysqli_fetch_assoc($customer_transactions)) {
     $remInterest+=$rows['expected_interest'];
     $remainingInterest=$expectedInterest-$remInterest;
