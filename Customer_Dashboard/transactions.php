@@ -32,15 +32,20 @@ $customer_trans = mysqli_fetch_assoc($customer_transactions);
 $remInterest=0;
 $remamount=0;
 
-
+$updated_topup_balance = mysqli_query($conn, "SELECT * FROM customer_top_up WHERE customer_id='$cus_ID'");
+$total_top_up = 0;
 // / Iterate over the fetched rows and sum the lent_amount
 while ($rows = mysqli_fetch_assoc($customer_transactions)) {
     $remInterest+=$rows['expected_interest'];
     $remainingInterest=$expectedInterest-$remInterest;
     $remamount+=$rows['amount_sent'] ;
-    $remainingTotal=$totalamount-$remamount;
 
 }
+while ($row = mysqli_fetch_assoc($updated_topup_balance)) {
+    $total_top_up += $row['amount'];
+}
+$remainingTotal=$totalamount-$remamount+$total_top_up;
+
 
 
 if (isset($_POST['send'])){
@@ -123,11 +128,11 @@ if (isset($_POST['send'])){
 <input type="number"  value="<?php echo $remainingInterest; ?>" class="bottom" name="">  
 
 </div>
-<div class="form2">
+<!-- <div class="form2">
 <p>Topup</p>
 <hr>
 <button style="margin-left:1%;";>TOP UP</button>
-</div>
+</div> -->
 <div class="form2">
 <p>Loan Payment</p>
 <hr>
