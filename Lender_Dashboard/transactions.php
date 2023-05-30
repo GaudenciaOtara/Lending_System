@@ -57,11 +57,11 @@ elseif ($amount_lent > $account_balance) {
     ";}
 else{
     $time = date('H:i:s');
-    $updatedBalance = $account_balance - $amount_lent;
-    $updateQuery = "UPDATE lender_transactions SET account_balance = $updatedBalance WHERE lender_id = {$user_data['id']}";
-    mysqli_query($conn, $updateQuery);
-    $updatetable = "UPDATE lender_reg SET account_balance = $updatedBalance WHERE id = {$user_data['id']}";
-    mysqli_query($conn, $updatetable);
+    // $updatedBalance = $account_balance - $amount_lent;
+    // $updateQuery = "UPDATE lender_transactions SET account_balance = $updatedBalance WHERE lender_id = {$user_data['id']}";
+    // mysqli_query($conn, $updateQuery);
+    // $updatetable = "UPDATE lender_reg SET account_balance = $updatedBalance WHERE id = {$user_data['id']}";
+    // mysqli_query($conn, $updatetable);
 
 $statement= $conn->prepare("INSERT into lender_transactions (agent_account_number,lent_amount,lender_id,time_allocated,unique_code) VALUES (?,?,?,?,?)");
 $statement->bind_param("iiiss",$agent_number,$amount_lent,$lender_id,$time,$uniqueCode);

@@ -1,7 +1,7 @@
 <?php
 session_start();
-include '../Functions/connect.php';
-include '../Functions/agentchecksession.php';
+Require '../Functions/connect.php';
+Require '../Functions/agentchecksession.php';
 check_session();
 if (isset($_SESSION['user'])){
     
@@ -187,6 +187,7 @@ else{
           <div class="form-group">
             <label for="select">Dropdown Select</label>
             <select class="form-control" id="select" onchange="fetchData(this.value)">
+    <option value="">Select Transaction Code</option> 
         <?php
         $state = $conn->prepare("SELECT * FROM lender_transactions where agent_account_number='$acc_no' ");
         $state->execute();

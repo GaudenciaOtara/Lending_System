@@ -1,7 +1,7 @@
 <?php
 session_start();
-include '../Functions/connect.php';
-include '../Functions/checksession.php';
+Require '../Functions/connect.php';
+Require '../Functions/checksession.php';
 check_session();
 if (isset($_SESSION['user'])){
     
@@ -182,6 +182,7 @@ echo $unique_code;
           <div class="form-group">
             <label for="selectOption">Options</label>
             <select class="form-control" id="selectOption">
+    <option value="">Select Transaction Code</option> 
             <?php
         $state = $conn->prepare("SELECT * FROM agent_returns where lender_id='$lender_id' ");
         $state->execute();

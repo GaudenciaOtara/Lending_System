@@ -1,5 +1,5 @@
 <?php
-include '../Functions/connect.php';
+Require '../Functions/connect.php';
 
 $selectedUniqueId = $_GET['unique_code'];
 $stmt = $conn->prepare("SELECT * FROM agent_returns WHERE unique_code = ?");

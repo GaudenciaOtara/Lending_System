@@ -1,7 +1,7 @@
 <?php
 session_start();
-include '../Functions/connect.php';
-include '../Functions/checksession.php';
+Require '../Functions/connect.php';
+Require '../Functions/agentchecksession.php';
 check_session();
 if (isset($_SESSION['user'])){
     

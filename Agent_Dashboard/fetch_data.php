@@ -1,5 +1,5 @@
 <?php
- include '../Functions/connect.php';
+ Require '../Functions/connect.php';
 
 $selectedValue = $_POST['selectedValue'];
 

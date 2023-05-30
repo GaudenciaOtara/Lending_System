@@ -14,7 +14,7 @@ $cus_ID=$user_data['id'];
 
 
 $agent_transactions = mysqli_query($conn,"select * from customer_money where customer_number='$phoneNumber'");
-$agent_trans = mysqli_fetch_assoc($agent_transactions);
+// $agent_trans = mysqli_fetch_assoc($agent_transactions);
 $sumLentAmount = 0;  
 $expectedInterest=0;
 $totalamount=0;
@@ -34,8 +34,7 @@ $remamount=0;
 
 $updated_topup_balance = mysqli_query($conn, "SELECT * FROM customer_top_up WHERE customer_id='$cus_ID'");
 $total_top_up = 0;
- 
-while ($rows = mysqli_fetch_assoc($customer_transactions)) {
+ while ($rows = mysqli_fetch_assoc($customer_transactions)) {
     $remInterest+=$rows['expected_interest'];
     $remainingInterest=$expectedInterest-$remInterest;
     $remamount+=$rows['amount_sent'] ;
@@ -145,7 +144,7 @@ if (isset($_POST['send'])){
 <input type="hidden" placeholder="Customer ID" value="<?php echo $user_data['id']; ?>" class="bottom" name="customer_id"> 
 
 
-
+ 
 <br>
       
 <?php
@@ -156,6 +155,7 @@ $result = $stmt->get_result();
 
 <div id="customerSelect">
     <select name="customer" id="customer">
+    <option value="">Select Transaction Code</option> 
         <?php
         while ($row = $result->fetch_assoc()) {
             echo '<option value="' . $row['id'] . '">' . $row['id'] . "-" . $row['unique_code'] . '</option>';
